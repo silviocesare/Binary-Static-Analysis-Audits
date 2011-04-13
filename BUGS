@@ -7,3 +7,39 @@ Debian5 - ccontrol - strcpy(configname, getenv("HOME"));
 	ccontrol
 
 Debian5 - gmond/ganglia-monitor - srand(1)
+
+Debian5 - courier/maildiracl - double free maildiraclt.c
+
+        p=malloc(strlen(maildir)+strlen(path)+2);
+
+        if (!p)
+                return -1;
+
+        strcat(strcat(strcpy(p, maildir), "/"), path);
+
+        q=malloc(strlen(p)+sizeof("/" ACLFILE));
+        if (!q)
+        {
+                free(p);
+                return -1;
+        }
+
+        unlink(strcat(strcpy(q, p), "/" ACLFILE));
+        free(p);
+        free(q);
+
+        if (strcmp(path, ".") == 0)
+        {
+                /* INBOX ACL default */
+
+                return 0;
+        }
+
+        q=malloc(strlen(maildir)+sizeof("/" ACLHIERDIR "/") +
+                 strlen(path));
+        if (!q)
+        {
+                free(p);
+                return -1;
+        }
+
