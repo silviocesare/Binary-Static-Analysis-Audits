@@ -47,3 +47,18 @@ Debian5 - courier/maildiracl - double free maildiraclt.c
                 return -1;
         }
 
+Debian 5 - xonix - /usr/games/xonix - double free x11.c
+  memset(score_rec[i].login, 0, 11);
+  strncpy(score_rec[i].login, pw->pw_name, 10);
+  memset(score_rec[i].full, 0, 65);
+  strncpy(score_rec[i].full, fullname, 64);
+  score_rec[i].tstamp = time(NULL);
+* free(fullname);
+
+  if((high = freopen(PATH_HIGHSCORE, "w",high)) == NULL) {
+    fprintf(stderr, "xonix: cannot reopen high score file\n");
+*   free(fullname);
+    gameover_pending = 0;
+    return;
+  }
+
