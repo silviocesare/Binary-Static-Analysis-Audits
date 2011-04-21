@@ -62,3 +62,32 @@ Debian 5 - xonix - /usr/games/xonix - double free x11.c
     return;
   }
 
+
+Debian 5 - amanda-server - /usr/lib/amanda/dumper dumper.c
+	
+        if (mkpdir(indexfile_tmp, 02755, (uid_t)-1, (gid_t)-1) == -1) {
+           errstr = newvstralloc(errstr,
+                                 "err create ",
+                                 indexfile_tmp,
+                                 ": ",
+                                 strerror(errno),
+                                 NULL);
+**         amfree(indexfile_real);
+**         amfree(indexfile_tmp);
+           goto failed;
+        }
+
+..
+..
+
+failed:
+..
+..
+    if (indexfile_tmp) {
+        unlink(indexfile_tmp);
+**      amfree(indexfile_tmp);
+**      amfree(indexfile_real);
+    }
+
+    return 0;
+}
